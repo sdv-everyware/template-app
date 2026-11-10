@@ -1,0 +1,48 @@
+// template_app: an EveryWare app: the time, a title, a number and a button that counts up,
+// written against the EveryWare UI library (vendor/sdv-everyware/ui-lib) only. The design is design/template-patch.js (+ ui-lib's
+// dark-theme-patch.js), its .dcf made by design/build.sh.
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+rust_binary {
+    name: "template_app",
+    crate_root: "src/main.rs",
+    srcs: [
+        "data/*.otf",
+    ],
+    rustlibs: [
+        "libclap",
+        "libcustomizations",
+        "libhar_log",
+        "libhar_monitoring",
+        "libhar_platform_api",
+        "libhar_types",
+        "libhar_user_input_evdev",
+        "libharry",
+        "libharry_app_platform_specific",
+        "libharry_app_utils",
+        "liblibc",
+        "liblog_rust",
+        "libeveryware_ui",
+    ],
+    proc_macros: [
+        "libclap_derive",
+        "libderive_customizations",
+        "libhar_ui_model_derive",
+    ],
+    vendor_available: true,
+    min_sdk_version: "29",
+    prefer_rlib: true,
+    ld_flags: ["-Wl,--no-as-needed"],
+    shared_libs: [
+        "libEGL",
+        "libGLESv2",
+    ],
+    arch: {
+        riscv64: {
+            enabled: false,
+        },
+    },
+}
